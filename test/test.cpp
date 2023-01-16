@@ -59,7 +59,7 @@ namespace all_tests
 		TEST_METHOD(test_03a)
 		{
 			std::vector<int> v = { 1, 5, 10 };
-			// TODO: change all values in a vector
+			
 			std::transform(v.begin(),v.end(),v.begin(),[](int a) { return a*a*a; });
 			Assert::AreEqual(3ull, v.size());
 			Assert::AreEqual(1, v[0]);
@@ -71,8 +71,8 @@ namespace all_tests
 			int x[] = { 3, 5, 10 };
 			std::vector<int> y = { 4, 12, 10 };
 			std::vector<double> d;
-			// TODO: calculate distances from origin (from x and y collections) to new vector
-			std::transform(std::begin(x),std::end(x),y.begin(),std::back_inserter(v),[](int a,int b){return hypot(a,b);});
+			
+			std::transform(std::begin(x),std::end(x),y.begin(),std::back_inserter(d),[](int a,int b){return hypot(a,b);});
 			Assert::AreEqual(3ull, d.size());
 			Assert::AreEqual(5., d[0]);
 			Assert::AreEqual(13., d[1]);
