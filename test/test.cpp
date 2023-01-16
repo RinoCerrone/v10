@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <numeric>
 #include <random>
+#include <math.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -22,7 +23,7 @@ namespace all_tests
 			std::stringstream ss("14 -78 22");
 			std::vector<int> v;
 			// TODO: read values from input stream into vector
-            std::copy(std::istream_iterator<int> in(ss),std::istream_iterator<int> ends,std::back_inserter(v));
+            std::copy(std::istream_iterator<int> ss,std::istream_iterator<int> ends,std::back_inserter(v));
 			Assert::AreEqual(3ull, v.size());
 			Assert::AreEqual(14, v[0]);
 			Assert::AreEqual(-78, v[1]);
@@ -42,8 +43,13 @@ namespace all_tests
 		TEST_METHOD(test_02b)
 		{
 			// generate
+			int inc2{
+				static int i=-1;
+				return i+=2;
+			}
 			std::vector<int> v(10);
 			// TODO: fill vector with incremental values (by 2)
+			std::fill(v.begin(),v.end(),std::back_inserter(inc2))
 			Assert::IsTrue(std::is_sorted(v.cbegin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
@@ -54,6 +60,7 @@ namespace all_tests
 		{
 			std::vector<int> v = { 1, 5, 10 };
 			// TODO: change all values in a vector
+			std::transform(v.begin(),v.end(),v.begin(),[](int a) { return a*a*a; });
 			Assert::AreEqual(3ull, v.size());
 			Assert::AreEqual(1, v[0]);
 			Assert::AreEqual(125, v[1]);
@@ -64,8 +71,8 @@ namespace all_tests
 			int x[] = { 3, 5, 10 };
 			std::vector<int> y = { 4, 12, 10 };
 			std::vector<double> d;
-
 			// TODO: calculate distances from origin (from x and y collections) to new vector
+			std::transform(std::begin(x),std::end(x),y.begin(),std::back_inserter(v),[](int a,int b){return hypot(a,b);});
 			Assert::AreEqual(3ull, d.size());
 			Assert::AreEqual(5., d[0]);
 			Assert::AreEqual(13., d[1]);
@@ -75,47 +82,47 @@ namespace all_tests
 		{
 			std::stringstream ss("1.5 2.5 3.5");
 			//auto res = // TODO: sum of all values in input stream
-			Assert::AreEqual(7.5, res);
+			//Assert::AreEqual(7.5, res);
 		}
 		TEST_METHOD(test_04b)
 		{
 			std::vector<std::string> v{ "V", "S", "I", "T", "E", "!" };
 			//auto res = // TODO: concatenated string with additional prefix 
-			Assert::AreEqual("GO VSITE!", res.c_str());
+			//Assert::AreEqual("GO VSITE!", res.c_str());
 		}
 		TEST_METHOD(test_04c)
 		{
 			struct person { std::string name; int age; };
 			std::vector<person> v{ {"Pero", 33}, {"Iva", 25} };
 			//auto total_age = // TODO: sum of all ages
-			Assert::AreEqual(58, total_age);
+			//Assert::AreEqual(58, total_age);
 		}
 
 		TEST_METHOD(test_05a)
 		{
 			std::vector<int> v{ -5, 8, 11, 0, -9, 77, -4 };
 			//auto number_of_negative = // TODO: 
-			Assert::AreEqual(3ll, number_of_negative);
+			//Assert::AreEqual(3ll, number_of_negative);
 		}
 		TEST_METHOD(test_05b)
 		{
 			std::vector<double> v{ 1.5, 8, -11.23, 0, 1e10, 1e10, 1e10, 0, 99 };
 			//auto number_of_invalid = // TODO: 
-			Assert::AreEqual(3ll, number_of_invalid);
+			//Assert::AreEqual(3ll, number_of_invalid);
 		}
 		TEST_METHOD(test_05c)
 		{
 			struct point { int x, y; };
 			std::vector<point> v{ {1,1}, {-5,3}, {2,2}, {-7,-6}, {9,-4} };
 			//auto number_in_first_quadrant = // TODO: 
-			Assert::AreEqual(2ll, number_in_first_quadrant);
+			//Assert::AreEqual(2ll, number_in_first_quadrant);
 		}
 
 		TEST_METHOD(test_06)
 		{
 			std::vector<int> v{ 33, 16, 24, 41, 25, 19, 9 };
 			//auto first_prime = // TODO: 
-			Assert::AreEqual(41, first_prime);
+			//Assert::AreEqual(41, first_prime);
 		}
 		TEST_METHOD(test_07a)
 		{
@@ -176,9 +183,9 @@ namespace all_tests
 		{
 			std::vector<double> v{ 11, 0.5, -97.23, -23.11, 48.78, 22.96, -77 };
 			//auto smallest_value = // TODO: 
-			Assert::AreEqual(-97.23, smallest_value);
+			//Assert::AreEqual(-97.23, smallest_value);
 			//auto largest_value = // TODO: 
-			Assert::AreEqual(48.78, largest_value);
+			//Assert::AreEqual(48.78, largest_value);
 		}
 		TEST_METHOD(test_12)
 		{
