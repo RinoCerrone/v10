@@ -49,8 +49,8 @@ namespace all_tests
 			
 			std::vector<int> v(10);
 			
-			std::fill(v.begin(),v.end(),inc2);
-			Assert::IsTrue(std::is_sorted(v.cbegin(), v.cend()));
+			std::fill(v.begin(),v.end(),[] { a=-1; return a+=2; });
+			Assert::IsTrue(std::is_sorted(v.begin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
 			Assert::AreEqual(19, v[9]);
