@@ -49,7 +49,7 @@ namespace all_tests
 			
 			std::vector<int> v(10);
 			
-			std::fill(v.begin(),v.end(),[] { a=-1; return a+=2; });
+			std::fill(v.begin(),v.end(),[] { static int a=-1; return a+=2; });
 			Assert::IsTrue(std::is_sorted(v.begin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
@@ -82,9 +82,11 @@ namespace all_tests
 		TEST_METHOD(test_04a)
 		{
 			std::stringstream ss("1.5 2.5 3.5");
-			auto res = // TODO: sum of all values in input stream
+			auto res = 
+			// TODO: sum of all values in input stream
 			Assert::AreEqual(7.5, res);
 		}
+     
 		TEST_METHOD(test_04b)
 		{
 			std::vector<std::string> v{ "V", "S", "I", "T", "E", "!" };
