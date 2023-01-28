@@ -49,7 +49,7 @@ namespace all_tests
 			
 			std::vector<int> v(10);
 			
-			std::fill(v.begin(),v.end(),[] { static int a=-1; return a+=2; });
+			std::fill(v.begin(),v.end(),[a=-1]() {return a+=2; });
 			Assert::IsTrue(std::is_sorted(v.begin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
@@ -72,7 +72,7 @@ namespace all_tests
 			std::vector<int> y = { 4, 12, 10 };
 			std::vector<double> d;
 			
-			std::transform(std::begin(x),std::end(x),y.begin(),std::back_inserter(d),[](int a,int b){return hypot(a,b);});
+			std::transform(std::begin(x),std::end(x),y.begin(),std::back_inserter(d),[](double a,double b){return hypot(a,b);});
 			Assert::AreEqual(3ull, d.size());
 			Assert::AreEqual(5., d[0]);
 			Assert::AreEqual(13., d[1]);
@@ -82,7 +82,7 @@ namespace all_tests
 		TEST_METHOD(test_04a)
 		{
 			std::stringstream ss("1.5 2.5 3.5");
-			auto res = 
+			auto res = std::copy(std::istream_iterator<int>(ss));
 			// TODO: sum of all values in input stream
 			Assert::AreEqual(7.5, res);
 		}
@@ -90,7 +90,8 @@ namespace all_tests
 		TEST_METHOD(test_04b)
 		{
 			std::vector<std::string> v{ "V", "S", "I", "T", "E", "!" };
-			auto res = // TODO: concatenated string with additional prefix 
+			auto res = 
+			// TODO: concatenated string with additional prefix 
 			Assert::AreEqual("GO VSITE!", res.c_str());
 		}
 		TEST_METHOD(test_04c)
