@@ -123,7 +123,8 @@ namespace all_tests
 		TEST_METHOD(test_06)
 		{
 			std::vector<int> v{ 33, 16, 24, 41, 25, 19, 9 };
-			auto first_prime =std::find_if(v.begin(),v.end(),[](int n){
+			auto first_prime =std::find_if(v.begin(),v.end(),[](int n)
+			{
 			      bool flag=true;
 				  for(int i=2;i<=(n/2);++i){
 					if(n%i==0){
@@ -131,11 +132,12 @@ namespace all_tests
 						break;
 					}
 				}
+				return flag;
 			  }
-				  return flag;
+				  
 			
 			);
-			Assert::AreEqual(41, first_prime);
+			Assert::AreEqual(41, *first_prime);
 		}
 		TEST_METHOD(test_07a)
 		{
@@ -171,7 +173,7 @@ namespace all_tests
 			s.erase(std::remove_if(s.begin(),s.end(),[](char c) {return (c=='a')||(c=='e')||(c=='i')||(c=='o')||(c=='u');}),s.end());
 			Assert::AreEqual("plrtn", s.c_str());
 		}
-		/*
+		
 		TEST_METHOD(test_09)
 		{
 			struct exam { std::string name; int points, grade; };
@@ -198,6 +200,7 @@ namespace all_tests
 			// TODO: put median value in the middle of vector. fast.
 			Assert::AreEqual(1000., v[v.size() / 2]); // median value
 		}
+		/*
 		TEST_METHOD(test_11)
 		{
 			std::vector<double> v{ 11, 0.5, -97.23, -23.11, 48.78, 22.96, -77 };
