@@ -45,7 +45,7 @@ namespace all_tests
 			
 			std::vector<int> v(10);
 			
-			std::generate(v.begin(),v.end(),[a=-1]() mutable {return a+=2; });
+			std::generate(std::begin(v), std::end(v),[a=-1]() mutable {return a+=2; });
 			Assert::IsTrue(std::is_sorted(v.begin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
@@ -86,7 +86,7 @@ namespace all_tests
 		TEST_METHOD(test_04b)
 		{
 			std::vector<std::string> v{ "V", "S", "I", "T", "E", "!" };
-			auto res =std::accumulate(v.begin(),v.end(),"GO ");
+			auto res =std::accumulate(v.begin(),v.end(),std::string("GO "));
 			// TODO: concatenated string with additional prefix 
 			Assert::AreEqual("GO VSITE!", res.c_str());
 		}
