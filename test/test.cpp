@@ -119,17 +119,28 @@ namespace all_tests
 			auto number_in_first_quadrant = std::count_if(v.begin(),v.end(),[](const point& p) {return p.x>=0 && p.y>=0;}); 
 			Assert::AreEqual(2ll, number_in_first_quadrant);
 		}
-        /*
+        
 		TEST_METHOD(test_06)
 		{
 			std::vector<int> v{ 33, 16, 24, 41, 25, 19, 9 };
-			auto first_prime = // TODO: 
+			auto first_prime =std::find_if(v.begin(),v.end(),[](int n)
+			      bool flag=true;
+				  for(int i=2;i<=(n/2);++i){
+					if(n%i==0){
+						flag=false;
+						break;
+					}
+				  }
+				  return flag;
+			
+			);
 			Assert::AreEqual(41, first_prime);
 		}
 		TEST_METHOD(test_07a)
 		{
 			std::vector<double> v{ 1e10, 8, -11.23, 0, 1e10, 1e10, 1e10, 0, 99 };
-			// TODO: change every invalid value (1e10) with -1 
+		    // TODO: change every invalid value (1e10) with -1 
+			std::replace(v.begin(),v.end(),1e10,-1);
 			Assert::AreEqual(-1., v[0]);
 			Assert::AreEqual(-1., v[4]);
 			Assert::AreEqual(-1., v[6]);
@@ -137,13 +148,16 @@ namespace all_tests
 		TEST_METHOD(test_07b)
 		{
 			std::string s("neisporuka");
-			// TODO: change every vowel with x 
+			// TODO: change every vowel with x
+			std::replace_if(s.begin(),s.end(),[](char& c) {return (c=='a')||(c=='e')||(c=='i')||(c=='o')||(c=='u');},'x');
 			Assert::AreEqual("nxxspxrxkx", s.c_str());
 		}
+		
 		TEST_METHOD(test_08a)
 		{
 			std::vector<double> v{ 1e10, 8, -11.23, 0, 1e10, 1e10, 1e10, 0, 99 };
 			// TODO: delete all invalid values (1e10)
+			v.erase(std::remove(v.begin(),v.end(),1e10),v.end());
 			Assert::AreEqual(5ull, v.size());
 			Assert::AreEqual(8., v[0]);
 			Assert::AreEqual(99., v[4]);
@@ -152,9 +166,11 @@ namespace all_tests
 		TEST_METHOD(test_08b)
 		{
 			std::string s("poliuretan");
-			// TODO: delete all vowels 
+			// TODO: delete all vowels
+			s.erase(std::remove_if(s.begin(),s.end(),[](char c) {return (c=='a')||(c=='e')||(c=='i')||(c=='o')||(c=='u');}),s.end());
 			Assert::AreEqual("plrtn", s.c_str());
 		}
+		/*
 		TEST_METHOD(test_09)
 		{
 			struct exam { std::string name; int points, grade; };
