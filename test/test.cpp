@@ -179,6 +179,13 @@ namespace all_tests
 			struct exam { std::string name; int points, grade; };
 			std::vector<exam> v{ {"Pero", 55, 2}, {"Iva", 93, 5}, {"Marko", 89, 5} };
 			// TODO: sort vector by grade, then by points
+			std::sort(v.begin(),v.end(),[](const exam& a,const exam& b)
+			{
+				if(a.grade==b.grade)return a.points>b.points;
+				return a.grade>b.grade;
+			}
+			
+		);
 			Assert::AreEqual("Iva", v[0].name.c_str());
 			Assert::AreEqual("Marko", v[1].name.c_str());
 			Assert::AreEqual("Pero", v[2].name.c_str());
@@ -198,24 +205,28 @@ namespace all_tests
 			std::shuffle(v.begin(), v.end(), g);
 
 			// TODO: put median value in the middle of vector. fast.
+			std::nth_element(v.begin(),v.begin()+v.size()/2,v.end());
 			Assert::AreEqual(1000., v[v.size() / 2]); // median value
 		}
-		/*
+		
 		TEST_METHOD(test_11)
 		{
 			std::vector<double> v{ 11, 0.5, -97.23, -23.11, 48.78, 22.96, -77 };
-			auto smallest_value = // TODO: 
+			auto smallest_value = *std::min_element(v.begin(),v.end()); 
 			Assert::AreEqual(-97.23, smallest_value);
-			auto largest_value = // TODO: 
+			auto largest_value = *std::max_element(v.begin(),v.end());
 			Assert::AreEqual(48.78, largest_value);
 		}
 		TEST_METHOD(test_12)
 		{
 			std::vector<int> atp_points{ 8445, 7480, 6220, 5300, 5285 };
 			// the most interesting match is the one with the smallest difference
-			auto smallest_difference = // TODO: 
+			std::vector<int> v;
+			std::adjacent_difference(atp_points.begin(),atp_points.end(),std::back_inserter(v));
+            std::transform(v.begin(),v.end(),v.begin(),[](int n) {return abs(n);});
+			auto smallest_difference = *std::min_element(v.begin(),v.end());
 			Assert::AreEqual(15, smallest_difference);
 		}
-	*/
+	
 	};
 }
