@@ -45,7 +45,7 @@ namespace all_tests
 			
 			std::vector<int> v(10);
 			
-			std::fill(v.begin(),v.end(),[a=-1]() mutable {return a+=2; });
+			std::generate(v.begin(),v.end(),[a=-1]() mutable {return a+=2; });
 			Assert::IsTrue(std::is_sorted(v.begin(), v.cend()));
 			Assert::IsTrue(v.cend() == std::adjacent_find(v.cbegin(), v.cend(), [](int a, int b) { return b - a != 2;  }));
 			Assert::AreEqual(1, v[0]);
@@ -78,7 +78,7 @@ namespace all_tests
 		TEST_METHOD(test_04a)
 		{
 			std::stringstream ss("1.5 2.5 3.5");
-			auto res =std::acumulate(std::istream_iterator<double>(ss),std::istream_iterator<double>(),0.);
+			auto res =std::accumulate(std::istream_iterator<double>(ss),std::istream_iterator<double>(),0.);
 			// TODO: sum of all values in input stream
 			Assert::AreEqual(7.5, res);
 		}
@@ -86,7 +86,7 @@ namespace all_tests
 		TEST_METHOD(test_04b)
 		{
 			std::vector<std::string> v{ "V", "S", "I", "T", "E", "!" };
-			auto res =std::acumulate(v.begin(),v.end(),"GO ");
+			auto res =std::accumulate(v.begin(),v.end(),"GO ");
 			// TODO: concatenated string with additional prefix 
 			Assert::AreEqual("GO VSITE!", res.c_str());
 		}
@@ -95,7 +95,7 @@ namespace all_tests
 		{
 			struct person { std::string name; int age; };
 			std::vector<person> v{ {"Pero", 33}, {"Iva", 25} };
-			auto total_age = std::acumulate(v.begin(),v.end(),0,[](int sum,const person& p){return sum+=p.age;});
+			auto total_age = std::accumulate(v.begin(),v.end(),0,[](int sum,const person& p){return sum+=p.age;});
 			// TODO: sum of all ages
 			Assert::AreEqual(58, total_age);
 		}
