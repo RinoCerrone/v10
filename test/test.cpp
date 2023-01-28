@@ -99,27 +99,27 @@ namespace all_tests
 			// TODO: sum of all ages
 			Assert::AreEqual(58, total_age);
 		}
-        /*
+       
 		TEST_METHOD(test_05a)
 		{
 			std::vector<int> v{ -5, 8, 11, 0, -9, 77, -4 };
-			auto number_of_negative = // TODO: 
+			auto number_of_negative =std::count_if(v.begin(),v.end(),[](int a) {return a<0;}); 
 			Assert::AreEqual(3ll, number_of_negative);
 		}
 		TEST_METHOD(test_05b)
 		{
 			std::vector<double> v{ 1.5, 8, -11.23, 0, 1e10, 1e10, 1e10, 0, 99 };
-			auto number_of_invalid = // TODO: 
+			auto number_of_invalid =std::count(v.begin(),v.end(),1e10);  
 			Assert::AreEqual(3ll, number_of_invalid);
 		}
 		TEST_METHOD(test_05c)
 		{
 			struct point { int x, y; };
 			std::vector<point> v{ {1,1}, {-5,3}, {2,2}, {-7,-6}, {9,-4} };
-			auto number_in_first_quadrant = // TODO: 
+			auto number_in_first_quadrant = std::count_if(v.begin(),v.end(),[](const point& p) {return p.x>=0 && p.y>=0;}); 
 			Assert::AreEqual(2ll, number_in_first_quadrant);
 		}
-
+        /*
 		TEST_METHOD(test_06)
 		{
 			std::vector<int> v{ 33, 16, 24, 41, 25, 19, 9 };
